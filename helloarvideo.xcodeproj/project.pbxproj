@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00677BEA21A5410400481A2A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677BE621A5410300481A2A /* MainViewController.m */; };
+		00677BEB21A5410400481A2A /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677BE921A5410400481A2A /* ARViewController.m */; };
 		CD36EB621E0AA53E00407D1F /* VideoRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36EB611E0AA53E00407D1F /* VideoRenderer.m */; };
 		CD4250E91E8A51F7000FE2EE /* ARVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4250E81E8A51F7000FE2EE /* ARVideo.m */; };
 		CDA652EC1EFD28B6004BDA22 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA652EB1EFD28B6004BDA22 /* Accelerate.framework */; };
@@ -32,6 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00677BE621A5410300481A2A /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		00677BE721A5410400481A2A /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		00677BE821A5410400481A2A /* ARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
+		00677BE921A5410400481A2A /* ARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
 		CD36EB611E0AA53E00407D1F /* VideoRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRenderer.m; sourceTree = "<group>"; };
 		CD36EB631E0AA55300407D1F /* VideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRenderer.h; sourceTree = "<group>"; };
 		CD36EB651E0AA55300407D1F /* helloar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helloar.h; sourceTree = "<group>"; };
@@ -136,6 +142,10 @@
 				F1D13BC71C0405F5008F72E2 /* OpenGLView.m */,
 				F1D13BCA1C0405F5008F72E2 /* ViewController.h */,
 				F1D13BCB1C0405F5008F72E2 /* ViewController.m */,
+				00677BE821A5410400481A2A /* ARViewController.h */,
+				00677BE921A5410400481A2A /* ARViewController.m */,
+				00677BE721A5410400481A2A /* MainViewController.h */,
+				00677BE621A5410300481A2A /* MainViewController.m */,
 				CD4250E71E8A51F7000FE2EE /* ARVideo.h */,
 				CD4250E81E8A51F7000FE2EE /* ARVideo.m */,
 				F15BDCDB1C03FEE200666121 /* Main.storyboard */,
@@ -229,6 +239,8 @@
 				F1D13BD11C0405F5008F72E2 /* ViewController.m in Sources */,
 				F1D13BCC1C0405F5008F72E2 /* AppDelegate.m in Sources */,
 				F1D13BCF1C0405F5008F72E2 /* OpenGLView.m in Sources */,
+				00677BEA21A5410400481A2A /* MainViewController.m in Sources */,
+				00677BEB21A5410400481A2A /* ARViewController.m in Sources */,
 				F15BDCD41C03FEE200666121 /* main.m in Sources */,
 				CDDEBE711E0BE1910041BE68 /* helloar.m in Sources */,
 				CD36EB621E0AA53E00407D1F /* VideoRenderer.m in Sources */,

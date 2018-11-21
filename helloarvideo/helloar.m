@@ -35,16 +35,26 @@ int view_size[] = {0, 0};
 int view_rotation = 0;
 int viewport[] = {0, 0, 1280, 720};
 
-void loadFromImage(easyar_ImageTracker * tracker, NSString * path)
+void loadFromImage(easyar_ImageTracker * tracker, NSString * name, int index)
 {
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     easyar_ImageTarget * target = [easyar_ImageTarget create];
-    NSString * name = [path substringToIndex:[path rangeOfString:@"."].location];
+    
+    NSString * absolutePath = [documentPath stringByAppendingString:[NSString stringWithFormat:@"/targets/%@",name]];
+    NSString *uid = [NSString stringWithFormat:@"%d",index];
     NSString * jstr = [@[@"{\n"
         "  \"images\" :\n"
         "  [\n"
         "    {\n"
-        "      \"image\" : \"", path, @"\",\n"
-        "      \"name\" : \"", name, @"\"\n"
+        "      \"name\" : \"",
+                         name,
+                         @"\",\n"
+        "      \"image\" : \"",
+                         absolutePath,
+                         @"\",\n"
+        "      \"uid\" : \"",
+                         uid,
+                         @"\"\n"
         "    }\n"
         "  ]\n"
         "}"] componentsJoinedByString:@""];
@@ -72,12 +82,19 @@ BOOL initialize()
     bool status = true;
     status &= [camera open:easyar_CameraDeviceType_Default];
     [camera setSize:[easyar_Vec2I create:@[@1280, @720]]];
-
+    
     if (!status) { return status; }
     easyar_ImageTracker * tracker = [easyar_ImageTracker create];
     [tracker attachStreamer:streamer];
     loadAllFromJsonFile(tracker, @"targets.json");
-    loadFromImage(tracker, @"namecard.jpg");
+    
+    int targetCount = 12;
+    
+    for (int i = 0; i < targetCount; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"mouth_%d.jpg",i+1];
+        loadFromImage(tracker, imageName,i);
+    }
+    
     trackers = [[NSMutableArray<easyar_ImageTracker *> alloc] init];
     [trackers addObject:tracker];
 
@@ -132,7 +149,7 @@ void initGL()
     videobg_renderer = nil;
     videobg_renderer = [easyar_Renderer create];
     video_renderers = [[NSMutableArray<VideoRenderer *> alloc] init];
-    for (int k = 0; k < 3; k += 1) {
+    for (int k = 0; k < 12; k ++) {
         VideoRenderer * video_renderer = [[VideoRenderer alloc] init];
         [video_renderer init_];
         [video_renderers addObject:video_renderer];
@@ -171,8 +188,9 @@ void updateViewport()
         int viewport_new[] = {(view_size[0] - viewport_size[0]) / 2, (view_size[1] - viewport_size[1]) / 2, viewport_size[0], viewport_size[1]};
         memcpy(&viewport[0], &viewport_new[0], 4 * sizeof(int));
         
-        if (camera && [camera isOpened])
+        if (camera && [camera isOpened]) {
             viewport_changed = false;
+        }
     }
 }
 
@@ -204,7 +222,7 @@ void render()
         easyar_TargetInstance * targetInstance = [targetInstances objectAtIndex:0];
         easyar_Target * target = [targetInstance target];
         int status = [targetInstance status];
-        if (status == easyar_TargetStatus_Tracked) {
+        if (status == easyar_TargetStatus_Tracked) { // 追踪到目标
             int runtimeID = [target runtimeID];
             if (active_target != 0 && active_target != runtimeID) {
                 [video onLost];
@@ -214,20 +232,34 @@ void render()
             }
             if (tracked_target == 0) {
                 if (video == nil && [video_renderers count] > 0) {
-                    NSString * target_name = [target name];
-                    if ([target_name isEqualToString:@"argame"] && [[video_renderers objectAtIndex:0] texid] != 0) {
+                    NSString * target_uid = [target uid];
+                    NSArray *videoArr = @[@"http://img.dpm.org.cn/Uploads/File/2018/04/19/haitang.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/11/27/wanhean.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/10/30/fxyxd.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/05/03/u5909ad6a125e1.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/05/03/u5909ad888a6c0.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/05/03/repair_new.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21fa8ed99a.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21f1215622.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21f012d948.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21fa8ed99a.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21f1215622.mp4",
+                                          @"http://img.dpm.org.cn/Uploads/File/2017/03/22/u58d21f012d948.mp4"];
+                    
+                    if ([[video_renderers objectAtIndex:[target_uid integerValue]] texid] != 0) {
+                        NSString *urlStr = [videoArr objectAtIndex:[target_uid integerValue]];
                         video = [[ARVideo alloc] init];
-                        [video openVideoFile:@"video.mp4" texid:[[video_renderers objectAtIndex:0] texid]];
-                        current_video_renderer = [video_renderers objectAtIndex:0];
-                    } else if ([target_name isEqualToString:@"namecard"] && [[video_renderers objectAtIndex:1] texid] != 0) {
-                        video = [[ARVideo alloc] init];
-                        [video openTransparentVideoFile:@"transparentvideo.mp4" texid:[[video_renderers objectAtIndex:1] texid]];
-                        current_video_renderer = [video_renderers objectAtIndex:1];
-                    } else if ([target_name isEqualToString:@"idback"] && [[video_renderers objectAtIndex:2] texid] != 0) {
-                        video = [[ARVideo alloc] init];
-                        [video openStreamingVideo:@"https://sightpvideo-cdn.sightp.com/sdkvideo/EasyARSDKShow201520.mp4" texid:[[video_renderers objectAtIndex:2] texid]];
-                        current_video_renderer = [video_renderers objectAtIndex:2];
+                        [video openStreamingVideo:urlStr texid:[[video_renderers objectAtIndex:[target_uid integerValue]] texid]];
+                        current_video_renderer = [video_renderers objectAtIndex:[target_uid integerValue]];
                     }
+                    
+//                    NSString * target_name = [target name];
+//                    if ([target_name isEqualToString:@"feiren"]) {
+//                        video = [[ARVideo alloc] init];
+//                        [video openTransparentVideoFile:@"kongzhongfeiren.mp4" texid:[[video_renderers objectAtIndex:1] texid]];
+//                        current_video_renderer = [video_renderers objectAtIndex:1];
+//                    }
+                    
                 }
                 if (video != nil) {
                     [video onFound];
