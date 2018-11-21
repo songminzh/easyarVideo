@@ -24,6 +24,8 @@
 		00677C1E21A5435E00481A2A /* pwd2key.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677C0D21A5435E00481A2A /* pwd2key.m */; };
 		00677C1F21A5435E00481A2A /* aestab.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677C0E21A5435E00481A2A /* aestab.m */; };
 		00677C2021A5435E00481A2A /* entropy.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677C1121A5435E00481A2A /* entropy.m */; };
+		00677C2321A543FD00481A2A /* ImageHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 00677C2121A543FD00481A2A /* ImageHandle.m */; };
+		527E2AD089C97BE1BE6F6681 /* Pods_helloarvideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5DFE1E78A863434EFD0F7E /* Pods_helloarvideo.framework */; };
 		CD36EB621E0AA53E00407D1F /* VideoRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD36EB611E0AA53E00407D1F /* VideoRenderer.m */; };
 		CD4250E91E8A51F7000FE2EE /* ARVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4250E81E8A51F7000FE2EE /* ARVideo.m */; };
 		CDA652EC1EFD28B6004BDA22 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA652EB1EFD28B6004BDA22 /* Accelerate.framework */; };
@@ -88,6 +90,10 @@
 		00677C0F21A5435E00481A2A /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
 		00677C1021A5435E00481A2A /* fileenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
 		00677C1121A5435E00481A2A /* entropy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = entropy.m; sourceTree = "<group>"; };
+		00677C2121A543FD00481A2A /* ImageHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageHandle.m; sourceTree = "<group>"; };
+		00677C2221A543FD00481A2A /* ImageHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageHandle.h; sourceTree = "<group>"; };
+		8593B236E2551686264231D7 /* Pods-helloarvideo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helloarvideo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-helloarvideo/Pods-helloarvideo.debug.xcconfig"; sourceTree = "<group>"; };
+		CAD0B7D667426F648F76759C /* Pods-helloarvideo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helloarvideo.release.xcconfig"; path = "Pods/Target Support Files/Pods-helloarvideo/Pods-helloarvideo.release.xcconfig"; sourceTree = "<group>"; };
 		CD36EB611E0AA53E00407D1F /* VideoRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoRenderer.m; sourceTree = "<group>"; };
 		CD36EB631E0AA55300407D1F /* VideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoRenderer.h; sourceTree = "<group>"; };
 		CD36EB651E0AA55300407D1F /* helloar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helloar.h; sourceTree = "<group>"; };
@@ -95,6 +101,7 @@
 		CD4250E81E8A51F7000FE2EE /* ARVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARVideo.m; sourceTree = "<group>"; };
 		CDA652EB1EFD28B6004BDA22 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		CDDEBE701E0BE1910041BE68 /* helloar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helloar.m; sourceTree = "<group>"; };
+		DF5DFE1E78A863434EFD0F7E /* Pods_helloarvideo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_helloarvideo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1210DAA1E6E9A9500C97CCA /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
 		F1210DAC1E6EBFB600C97CCA /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		F1210DB41E6EC4D100C97CCA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -137,6 +144,7 @@
 				F1D13BFF1C041E55008F72E2 /* OpenGLES.framework in Frameworks */,
 				F1D13BFB1C041E38008F72E2 /* UIKit.framework in Frameworks */,
 				F1210DAD1E6EBFB600C97CCA /* CoreMotion.framework in Frameworks */,
+				527E2AD089C97BE1BE6F6681 /* Pods_helloarvideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +209,15 @@
 			path = aes;
 			sourceTree = "<group>";
 		};
+		1597F0ABE82FFD44AD8A3492 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8593B236E2551686264231D7 /* Pods-helloarvideo.debug.xcconfig */,
+				CAD0B7D667426F648F76759C /* Pods-helloarvideo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CDDEBE721E0BF0A20041BE68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +233,7 @@
 				F1D13BFA1C041E38008F72E2 /* UIKit.framework */,
 				F1210DAC1E6EBFB600C97CCA /* CoreMotion.framework */,
 				F1210DAA1E6E9A9500C97CCA /* easyar.framework */,
+				DF5DFE1E78A863434EFD0F7E /* Pods_helloarvideo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,6 +244,7 @@
 				F15BDCD11C03FEE200666121 /* helloarvideo */,
 				F15BDCD01C03FEE200666121 /* Products */,
 				CDDEBE721E0BF0A20041BE68 /* Frameworks */,
+				1597F0ABE82FFD44AD8A3492 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				00677BEC21A5435E00481A2A /* SSZipArchive */,
+				00677C2221A543FD00481A2A /* ImageHandle.h */,
+				00677C2121A543FD00481A2A /* ImageHandle.m */,
 				CD36EB611E0AA53E00407D1F /* VideoRenderer.m */,
 				CD36EB631E0AA55300407D1F /* VideoRenderer.h */,
 				CDDEBE701E0BE1910041BE68 /* helloar.m */,
@@ -281,9 +302,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F15BDCE61C03FEE200666121 /* Build configuration list for PBXNativeTarget "helloarvideo" */;
 			buildPhases = (
+				6D77C2A76B7C411DAC6249D4 /* [CP] Check Pods Manifest.lock */,
 				F15BDCCB1C03FEE200666121 /* Sources */,
 				F15BDCCC1C03FEE200666121 /* Frameworks */,
 				F15BDCCD1C03FEE200666121 /* Resources */,
+				1216A60C880C60844E558FEA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,6 +364,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1216A60C880C60844E558FEA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-helloarvideo/Pods-helloarvideo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-helloarvideo/Pods-helloarvideo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D77C2A76B7C411DAC6249D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-helloarvideo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F15BDCCB1C03FEE200666121 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -361,6 +431,7 @@
 				00677C2021A5435E00481A2A /* entropy.m in Sources */,
 				F15BDCD41C03FEE200666121 /* main.m in Sources */,
 				00677C1221A5435E00481A2A /* unzip.m in Sources */,
+				00677C2321A543FD00481A2A /* ImageHandle.m in Sources */,
 				00677C1921A5435E00481A2A /* hmac.m in Sources */,
 				00677C1B21A5435E00481A2A /* fileenc.m in Sources */,
 				CDDEBE711E0BE1910041BE68 /* helloar.m in Sources */,
@@ -478,6 +549,7 @@
 		};
 		F15BDCE71C03FEE200666121 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8593B236E2551686264231D7 /* Pods-helloarvideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3A365563G;
@@ -496,6 +568,7 @@
 		};
 		F15BDCE81C03FEE200666121 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAD0B7D667426F648F76759C /* Pods-helloarvideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B3A365563G;

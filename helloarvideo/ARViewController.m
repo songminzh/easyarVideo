@@ -4,25 +4,19 @@
 
 
 #import "ARViewController.h"
-#import "imageHandle.h"
+#import "ImageHandle.h"
 #import "Masonry.h"
 #import "OpenGLView.h"
-#import "GTDefine.h"
 #import <easyar/engine.oc.h>
+
+#define SCREEN_HEIGHT              [[UIScreen mainScreen] bounds].size.height
+#define SCREEN_WIDTH               [[UIScreen mainScreen] bounds].size.width
 
 @implementation ARViewController {
     OpenGLView *glView;
 }
 
 #pragma mark  - Life Circle
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        DebugLog(@"AR Init");
-    }
-    return self;
-}
 
 - (void)loadView {
     glView = [[OpenGLView alloc] initWithFrame:CGRectZero];
