@@ -351,6 +351,7 @@
 				TargetAttributes = {
 					F15BDCCE1C03FEE200666121 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = B3A365563G;
 					};
 				};
 			};
@@ -585,7 +586,7 @@
 			baseConfigurationReference = F1859C0E93116D9ACF34C0BF /* Pods-helloarvideo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3A365563G;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -604,7 +605,7 @@
 			baseConfigurationReference = 7D12B256EC166BAAE439B1D5 /* Pods-helloarvideo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B3A365563G;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
