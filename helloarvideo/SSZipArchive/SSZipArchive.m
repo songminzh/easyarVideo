@@ -19,10 +19,11 @@
 + (NSDate *)_dateWithMSDOSFormat:(UInt32)msdosDateTime;
 @end
 
-@implementation SSZipArchive {
+@implementation SSZipArchive
+{
     NSString *_path;
     NSString *_filename;
-    zipFile  _zip;
+    zipFile _zip;
 }
 
 #pragma mark - Password check
@@ -33,7 +34,7 @@
     if (zip == NULL) {
         return NO;
     }
-
+    
     int ret = unzGoToFirstFile(zip);
     if (ret == UNZ_OK) {
         do {
@@ -48,30 +49,35 @@
             } else if((fileInfo.flag & 1) == 1) {
                 return YES;
             }
-
+            
             unzCloseCurrentFile(zip);
             ret = unzGoToNextFile(zip);
         } while( ret==UNZ_OK && UNZ_OK!=UNZ_END_OF_LIST_OF_FILE );
-
+        
     }
+    
     return NO;
 }
 
 #pragma mark - Unzipping
 
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination {
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination
+{
     return [self unzipFileAtPath:path toDestination:destination delegate:nil];
 }
 
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(nullable NSString *)password error:(NSError **)error {
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(nullable NSString *)password error:(NSError **)error
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:YES overwrite:overwrite password:password error:error delegate:nil progressHandler:nil completionHandler:nil];
 }
 
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination delegate:(nullable id<SSZipArchiveDelegate>)delegate {
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination delegate:(nullable id<SSZipArchiveDelegate>)delegate
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:YES overwrite:YES password:nil error:nil delegate:delegate progressHandler:nil completionHandler:nil];
 }
 
-+ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(nullable NSString *)password error:(NSError **)error delegate:(nullable id<SSZipArchiveDelegate>)delegate {
++ (BOOL)unzipFileAtPath:(NSString *)path toDestination:(NSString *)destination overwrite:(BOOL)overwrite password:(nullable NSString *)password error:(NSError **)error delegate:(nullable id<SSZipArchiveDelegate>)delegate
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:YES overwrite:overwrite password:password error:error delegate:delegate progressHandler:nil completionHandler:nil];
 }
 
@@ -80,14 +86,16 @@
               overwrite:(BOOL)overwrite
                password:(NSString *)password
         progressHandler:(void (^)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler {
+      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:YES overwrite:overwrite password:password error:nil delegate:nil progressHandler:progressHandler completionHandler:completionHandler];
 }
 
 + (BOOL)unzipFileAtPath:(NSString *)path
           toDestination:(NSString *)destination
         progressHandler:(void (^)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler {
+      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:YES overwrite:YES password:nil error:nil delegate:nil progressHandler:progressHandler completionHandler:completionHandler];
 }
 
@@ -97,7 +105,8 @@
               overwrite:(BOOL)overwrite
                password:(nullable NSString *)password
                   error:(NSError * *)error
-               delegate:(nullable id<SSZipArchiveDelegate>)delegate {
+               delegate:(nullable id<SSZipArchiveDelegate>)delegate
+{
     return [self unzipFileAtPath:path toDestination:destination preserveAttributes:preserveAttributes overwrite:overwrite password:password error:error delegate:delegate progressHandler:nil completionHandler:nil];
 }
 
@@ -109,7 +118,8 @@
                   error:(NSError **)error
                delegate:(id<SSZipArchiveDelegate>)delegate
         progressHandler:(void (^)(NSString *entry, unz_file_info zipInfo, long entryNumber, long total))progressHandler
-      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler {
+      completionHandler:(void (^)(NSString *path, BOOL succeeded, NSError *error))completionHandler
+{
     // Begin opening
     zipFile zip = unzOpen((const char*)[path UTF8String]);
     if (zip == NULL)
@@ -473,18 +483,20 @@
 }
 
 #pragma mark - Zipping
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths {
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths
+{
     return [SSZipArchive createZipFileAtPath:path withFilesAtPaths:paths withPassword:nil];
 }
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath {
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath{
     return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath withPassword:nil];
 }
 
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory {
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory{
     return [SSZipArchive createZipFileAtPath:path withContentsOfDirectory:directoryPath keepParentDirectory:keepParentDirectory withPassword:nil];
 }
 
-+ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths withPassword:(NSString *)password {
++ (BOOL)createZipFileAtPath:(NSString *)path withFilesAtPaths:(NSArray *)paths withPassword:(NSString *)password
+{
     BOOL success = NO;
     SSZipArchive *zipArchive = [[SSZipArchive alloc] initWithPath:path];
     if ([zipArchive open]) {
@@ -501,12 +513,12 @@
     return success;
 }
 
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath withPassword:(nullable NSString *)password {
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath withPassword:(nullable NSString *)password{
     return [self createZipFileAtPath:path withContentsOfDirectory:directoryPath keepParentDirectory:NO withPassword:password];
 }
 
 
-+ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory withPassword:(nullable NSString *)password {
++ (BOOL)createZipFileAtPath:(NSString *)path withContentsOfDirectory:(NSString *)directoryPath keepParentDirectory:(BOOL)keepParentDirectory withPassword:(nullable NSString *)password{
     BOOL success = NO;
     
     NSFileManager *fileManager = nil;
@@ -552,7 +564,8 @@
 }
 
 
-- (instancetype)initWithPath:(NSString *)path {
+- (instancetype)initWithPath:(NSString *)path
+{
     if ((self = [super init])) {
         _path = [path copy];
     }
@@ -561,20 +574,24 @@
 
 
 #if !__has_feature(objc_arc)
-- (void)dealloc {
+- (void)dealloc
+{
     [_path release];
     [super dealloc];
 }
 #endif
 
 
-- (BOOL)open {
+- (BOOL)open
+{
     NSAssert((_zip == NULL), @"Attempting open an archive which is already open");
     _zip = zipOpen([_path UTF8String], APPEND_STATUS_CREATE);
     return (NULL != _zip);
 }
 
-- (void)zipInfo:(zip_fileinfo*)zipInfo setDate:(NSDate*)date {
+
+- (void)zipInfo:(zip_fileinfo*)zipInfo setDate:(NSDate*)date
+{
     NSCalendar *currentCalendar = [NSCalendar currentCalendar];
 #if defined(__IPHONE_8_0) || defined(__MAC_10_10)
     uint flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
@@ -590,7 +607,8 @@
     zipInfo->tmz_date.tm_year = (unsigned int)components.year;
 }
 
-- (BOOL)writeFolderAtPath:(NSString *)path withFolderName:(NSString *)folderName withPassword:(nullable NSString *)password {
+- (BOOL)writeFolderAtPath:(NSString *)path withFolderName:(NSString *)folderName withPassword:(nullable NSString *)password
+{
     NSAssert((_zip != NULL), @"Attempting to write to an archive which was never opened");
     
     zip_fileinfo zipInfo = {{0}};
@@ -630,14 +648,16 @@
     return YES;
 }
 
-- (BOOL)writeFile:(NSString *)path withPassword:(nullable NSString *)password {
+- (BOOL)writeFile:(NSString *)path withPassword:(nullable NSString *)password;
+{
     return [self writeFileAtPath:path withFileName:nil withPassword:password];
 }
 
 // supports writing files with logical folder/directory structure
 // *path* is the absolute path of the file that will be compressed
 // *fileName* is the relative name of the file how it is stored within the zip e.g. /folder/subfolder/text1.txt
-- (BOOL)writeFileAtPath:(NSString *)path withFileName:(nullable NSString *)fileName withPassword:(nullable NSString *)password {
+- (BOOL)writeFileAtPath:(NSString *)path withFileName:(nullable NSString *)fileName withPassword:(nullable NSString *)password
+{
     NSAssert((_zip != NULL), @"Attempting to write to an archive which was never opened");
     
     FILE *input = fopen([path UTF8String], "r");
@@ -703,7 +723,8 @@
     return YES;
 }
 
-- (BOOL)writeData:(NSData *)data filename:(nullable NSString *)filename withPassword:(nullable NSString *)password; {
+- (BOOL)writeData:(NSData *)data filename:(nullable NSString *)filename withPassword:(nullable NSString *)password;
+{
     if (!_zip) {
         return NO;
     }
@@ -722,7 +743,8 @@
 }
 
 
-- (BOOL)close {
+- (BOOL)close
+{
     NSAssert((_zip != NULL), @"[SSZipArchive] Attempting to close an archive which was never opened");
     zipClose(_zip, NULL);
     return YES;
@@ -730,7 +752,8 @@
 
 #pragma mark - Private
 
-+ (NSString *)_temporaryPathForDiscardableFile {
++ (NSString *)_temporaryPathForDiscardableFile
+{
     static NSString *discardableFileName = @".DS_Store";
     static NSString *discardableFilePath = nil;
     static dispatch_once_t onceToken;
@@ -751,7 +774,8 @@
 //
 // 3658 = 0011 0110 0101 1000 = 0011011 0010 11000 = 27 2 24 = 2007-02-24
 // 7423 = 0111 0100 0010 0011 - 01110 100001 00011 = 14 33 3 = 14:33:06
-+ (NSDate *)_dateWithMSDOSFormat:(UInt32)msdosDateTime {
++ (NSDate *)_dateWithMSDOSFormat:(UInt32)msdosDateTime
+{
     static const UInt32 kYearMask = 0xFE000000;
     static const UInt32 kMonthMask = 0x1E00000;
     static const UInt32 kDayMask = 0x1F0000;

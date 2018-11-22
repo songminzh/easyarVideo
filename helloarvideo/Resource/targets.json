@@ -1,0 +1,21 @@
+{
+  "images" :
+  [
+    {
+      "image" : "argame00.jpg",
+      "name" : "argame",
+      "video" : "http://img.dpm.org.cn/Uploads/File/2018/04/19/haitang.mp4"
+    },
+    {
+      "image" : "idback.jpg",
+      "name" : "idback",
+      "video" : "http://img.dpm.org.cn/Uploads/File/2018/04/19/haitang.mp4"
+    }
+   ,
+   {
+   "image" : "namecard.jpg",
+   "name" : "namecard",
+   "video" : "http://img.dpm.org.cn/Uploads/File/2018/04/19/haitang.mp4"
+   }
+  ]
+}

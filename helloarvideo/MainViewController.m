@@ -1,8 +1,10 @@
 //
 //  MainViewController.m
-
+//  helloarvideo
+//
 //  Created by Murphy Zheng on 2018/4/27.
-
+//  Copyright © 2018年 VisionStar Information Technology (Shanghai) Co., Ltd. All rights reserved.
+//
 
 #import "MainViewController.h"
 #import "ARViewController.h"
@@ -13,8 +15,6 @@
 #import "MBProgressHUD.h"
 
 static NSString *kTargetImagesFileName = @"/targets";
-static NSString *kTargetFileURLString  = @"http://oprnxh1p7.bkt.clouddn.com/targets.zip";
-
 @interface MainViewController (){
     NSURLSessionTask *_downloadTask;
 }
@@ -23,10 +23,19 @@ static NSString *kTargetFileURLString  = @"http://oprnxh1p7.bkt.clouddn.com/targ
 
 @implementation MainViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (IBAction)startScan:(id)sender {
     ImageHandle *imageHandle = [[ImageHandle alloc] init];
     if (![imageHandle isFileExist:kTargetImagesFileName]) {
-        [self downloadFileWithURL:[NSURL URLWithString:kTargetFileURLString]];
+        [self downloadFileWithURL:[NSURL URLWithString:@"http://oprnxh1p7.bkt.clouddn.com/targets.zip"]];
     }else {
         ARViewController *arVC = [[ARViewController alloc] init];
         [self presentViewController:arVC animated:YES completion:nil];
@@ -34,24 +43,22 @@ static NSString *kTargetFileURLString  = @"http://oprnxh1p7.bkt.clouddn.com/targ
 }
 
 - (void)downloadFileWithURL:(NSURL *)URL {
-    // HUD
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *mannager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
-    hud.label.text = @"正在更新资源包……";
+    hud.label.text = @"正在更新资源包…";
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    _downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+    _downloadTask = [mannager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
         if (downloadProgress) {
-            CGFloat currentProgress = (CGFloat)(1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
-            
+            CGFloat currentProgress = (CGFloat)downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
             dispatch_async(dispatch_get_main_queue(), ^{
                 hud.progress = currentProgress;
                 hud.label.text = [NSString stringWithFormat:@"正在更新资源包:%.0f%%\n",currentProgress * 100];
-                NSLog(@"%@",[NSString stringWithFormat:@"当前进度为：%.2f%%",currentProgress * 100]);
             });
+            
+            NSLog(@"%@",[NSString stringWithFormat:@"当前进度为：%.2f%%",currentProgress * 100]);
         }
     } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
         NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
@@ -59,17 +66,17 @@ static NSString *kTargetFileURLString  = @"http://oprnxh1p7.bkt.clouddn.com/targ
         return [NSURL fileURLWithPath:path];
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         [hud hideAnimated:YES];
-        NSString *zipPath = [filePath path];
-        NSFileManager *fileManger = [NSFileManager defaultManager];
         
-        NSString *folderPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        NSString *imgFilePath = [filePath path];
+        NSFileManager *fileManger = [NSFileManager defaultManager];
+        NSString *imgaesPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
         
         // remove
-        [fileManger removeItemAtPath:folderPath error:nil];
-        [fileManger createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:nil];
+        [fileManger removeItemAtPath:imgaesPath error:nil];
+        [fileManger createDirectoryAtPath:imgaesPath withIntermediateDirectories:YES attributes:nil error:nil];
         
         // unzip
-        [SSZipArchive unzipFileAtPath:zipPath toDestination:folderPath];
+        [SSZipArchive unzipFileAtPath:imgFilePath toDestination:imgaesPath];
         
         // scan
         ARViewController *arVC = [[ARViewController alloc] init];
@@ -77,5 +84,6 @@ static NSString *kTargetFileURLString  = @"http://oprnxh1p7.bkt.clouddn.com/targ
     }];
     [_downloadTask resume];
 }
+
 
 @end

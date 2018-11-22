@@ -1,109 +1,49 @@
 //
 //  ViewController.m
-//  Created by Murphy Zheng on 2018/6/6.
-
+//  tangar
+//
+//  Created by Murphy Zheng on 2018/4/26.
+//
 
 #import "ARViewController.h"
-#import "ImageHandle.h"
-#import "Masonry.h"
+#import "imageHandle.h"
 #import "OpenGLView.h"
-#import <easyar/engine.oc.h>
-
-#define SCREEN_HEIGHT              [[UIScreen mainScreen] bounds].size.height
-#define SCREEN_WIDTH               [[UIScreen mainScreen] bounds].size.width
 
 @implementation ARViewController {
     OpenGLView *glView;
 }
 
-#pragma mark  - Life Circle
-
 - (void)loadView {
-    glView = [[OpenGLView alloc] initWithFrame:CGRectZero];
-    self.view = glView;
+    self->glView = [[OpenGLView alloc] initWithFrame:CGRectZero];
+    self.view = self->glView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initNav];
-    [glView setOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    [self->glView setOrientation:self.interfaceOrientation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [glView start];
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    [glView resize:self.view.bounds orientation:[[UIApplication sharedApplication] statusBarOrientation]];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+    [self->glView start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [glView stop];
+    [self->glView stop];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    [self->glView resize:self.view.bounds orientation:self.interfaceOrientation];
 }
 
-- (void)dealloc {
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self->glView setOrientation:toInterfaceOrientation];
+}
+- (IBAction)scan:(UIButton *)sender {
     
-}
-
-- (void)initNav {
-    // Use Mansonry
-    UIButton *leftItem = [UIButton buttonWithType:UIButtonTypeCustom];
-    [glView addSubview:leftItem];
-    [leftItem setTitle:@"Back" forState:UIControlStateNormal];
-    leftItem.enabled = YES;
-    [leftItem addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    CGRect left_rect = CGRectMake(0, 14, 80, 30);
-    [leftItem mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->glView.mas_top).with.offset(left_rect.origin.y);
-        make.left.equalTo(self->glView.mas_left).with.offset(left_rect.origin.x);
-        make.width.mas_equalTo(left_rect.size.width);
-        make.height.mas_equalTo(left_rect.size.height);
-    }];
-    
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.text = @"AR Scan";
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = [UIColor whiteColor];
-    [glView addSubview:titleLabel];
-    CGRect title_rect = CGRectMake((SCREEN_WIDTH - 90)/2, 14, 90, 30);
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self->glView.mas_top).with.offset(title_rect.origin.y);
-        make.left.mas_equalTo(self->glView.mas_left).with.offset(title_rect.origin.x);
-        make.width.with.mas_equalTo(title_rect.size.width);
-        make.height.with.mas_equalTo(title_rect.size.height);
-    }];
-    
-    UIButton *rightItem = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightItem setTitle:@"Flash" forState:UIControlStateNormal];
-    [rightItem setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [glView addSubview:rightItem];
-    CGRect right_rect = CGRectMake(SCREEN_WIDTH - 80, 14, 80, 30);
-    [rightItem addTarget:self action:@selector(flashSwith) forControlEvents:UIControlEventTouchUpInside];
-    [rightItem mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self->glView.mas_top).with.offset(right_rect.origin.y);
-        make.left.mas_equalTo(self->glView.mas_left).with.offset(right_rect.origin.x);
-        make.width.mas_equalTo(right_rect.size.width);
-        make.height.mas_equalTo(right_rect.size.height);
-    }];
-}
-
-- (void)backAction {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)flashSwith {
-    // TODO: 打开闪光灯
 }
 
 @end
